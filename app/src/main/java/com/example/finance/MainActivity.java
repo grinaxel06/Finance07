@@ -1,6 +1,8 @@
 package com.example.finance;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -8,20 +10,23 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.method.CharacterPickerDialog;
 import android.view.View;
-import android.widget.Button;
 
 import com.google.android.material.button.MaterialButton;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final List<Item> items = new ArrayList<>();
+    private final RecyclerView.Adapter adapter = new MyAdapter(this.items);
+
     MaterialButton show;
     MaterialButton show1;
     Dialog dialog;
-
+    private boolean flag =false;
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +34,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        RecyclerView recyclerView =findViewById(R.id.recycler);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+        Intent intent = getIntent();
+        String title = intent.getStringExtra("title");
+        String money = intent.getStringExtra("money");
+        String date = intent.getStringExtra("date");
+        flag = intent.getBooleanExtra("flag",false);
+        if(flag){
+        this.items.add(new Item(title,money,date));
+        adapter.notifyItemInserted(this.items.size()-1);}
+
+
 
         show = findViewById(R.id.plus_button);
         show1 = findViewById(R.id.minus_button);
         dialog = new Dialog(MainActivity.this);
-
         show.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,7 +64,11 @@ public class MainActivity extends AppCompatActivity {
                 showCustomDialog();
             }
         });
+
+
     }
+
+
 
     private void showCustomDialog() {
         dialog.setContentView(R.layout.regular_or_single);
@@ -63,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         };
-
         btt_on_AddOperation.setOnClickListener(oclBtt_on_AddOperation);
     }
 

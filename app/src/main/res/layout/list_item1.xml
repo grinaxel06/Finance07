@@ -6,21 +6,23 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:backgroundTint="@color/grey"
         app:cardCornerRadius="25dp">
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardwitharrow"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="8dp"
             app:cardCornerRadius="3dp"
             android:backgroundTint="@color/green">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/arrow_up"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:id="@+id/arrow_card">
 
             </ImageView>
 
@@ -33,15 +35,17 @@
             android:text="Зарплата"
             android:textColor="@color/white"
             android:layout_gravity="center_vertical"
-            android:textSize="18dp"
-            android:layout_marginBottom="15dp"
+            android:textSize="20sp"
+            android:id="@+id/title"
+            android:layout_marginBottom="20dp"
             android:layout_marginStart="100dp">
         </TextView>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="01.01.2001 00:00"
-            android:textSize="12sp"
+            android:textSize="15sp"
+            android:id="@+id/date"
             android:textColor="@color/textt"
             android:layout_gravity="center_vertical"
             android:layout_marginTop="10dp"
@@ -50,6 +54,7 @@
         </TextView>
         <TextView
             android:layout_width="100dp"
+            android:id="@+id/money"
             android:layout_height="wrap_content"
             android:gravity="end"
             android:layout_gravity="center_vertical|end"
